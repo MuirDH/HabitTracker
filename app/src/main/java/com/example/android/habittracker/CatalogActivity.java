@@ -97,12 +97,18 @@ public class CatalogActivity extends AppCompatActivity {
              * Create a header in the Text View that looks like this:
              *
              * There are <cursor.getCount()> habits logged.
-             * _id - habit - frequency - extra - time
+             * _id - habit - extra - frequency - time
              *
              * The while loop below iterates through the rows of the cursor and displays the
              * information form each column in this order
              */
-            displayView.setText("There are " + cursor.getCount() + " habits logged.\n\n");
+            displayView.setText(getString(R.string.there_are)
+                    + " "
+                    + cursor.getCount()
+                    + " "
+                    + getString(R.string.habits_logged)
+                    + "\n\n");
+
             displayView.append(HabitEntry._ID + " - "
                     + HabitEntry.COLUMN_HABIT + " - "
                     + HabitEntry.COLUMN_EXTRA_INFO + " - "
@@ -163,8 +169,8 @@ public class CatalogActivity extends AppCompatActivity {
          * attributes are the values.
          */
         ContentValues values = new ContentValues();
-        values.put(HabitEntry.COLUMN_HABIT, "Study Udacity");
-        values.put(HabitEntry.COLUMN_EXTRA_INFO, "Work on ABND course");
+        values.put(HabitEntry.COLUMN_HABIT, getString(R.string.study_udacity));
+        values.put(HabitEntry.COLUMN_EXTRA_INFO, getString(R.string.work_on_abnd_course));
         values.put(HabitEntry.COLUMN_FREQUENCY, HabitEntry.DAILY);
         values.put(HabitEntry.COLUMN_TIME, 120);
 
@@ -200,24 +206,9 @@ public class CatalogActivity extends AppCompatActivity {
                 displayDatabaseInfo();
                 return true;
 
-            //Respond to a click on the "Delete all entries" menu option
-            case R.id.action_delete_all_entries:
-
-                // Drop the table
-                deleteAllEntries();
-                return true;
-
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void deleteAllEntries() {
-
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        // Delete all entries in the habits table
-        db.execSQL("DROP TABLE IF EXISTS " + HabitEntry.TABLE_NAME);
-
-    }
 }

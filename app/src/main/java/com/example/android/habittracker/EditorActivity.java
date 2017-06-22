@@ -92,8 +92,7 @@ public class EditorActivity extends AppCompatActivity {
                         frequency = HabitEntry.TWICE_MONTHLY;
                     } else if (selection.equals(getString(R.string.monthly))) {
                         frequency = HabitEntry.MONTHLY;
-                    } else {
-                        selection.equals(getString(R.string.daily));
+                    } else if (selection.equals(getString(R.string.daily))) {
                         frequency = HabitEntry.DAILY;
                     }
                 }
@@ -183,15 +182,6 @@ public class EditorActivity extends AppCompatActivity {
 
                 // Exit activity
                 finish();
-                return true;
-
-            // Respond to a click on the "Delete" menu option
-            case R.id.action_delete:
-
-                /*
-                 * Do nothing for now. Eventually this will prompt the user to select a row to be
-                 * deleted and will then delete that row.
-                 */
                 return true;
 
             // Respond to a click on the "Up" arrow button in the app bar.

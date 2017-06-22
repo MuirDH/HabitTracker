@@ -7,8 +7,6 @@
 
     <!-- Label for overflow menu option that inserts fake habit data into the app [CHAR LIMIT=20] -->
     <string name="action_insert_dummy_data">Insert Dummy Data</string>
-    <!-- Label for overflow menu option that deletes all habit data in the app [CHAR LIMIT=20] -->
-    <string name="action_delete_all_entries">Delete All Habits</string>
 
     <!-- Label for dropdown menu option if the habit is done every other day [CHAR LIMIT=20] -->
     <string name="every_other_day">Every other day</string>
@@ -52,7 +50,9 @@
     <!-- Label for editor menu option to save habit and leave editor [CHAR LIMIT=20] -->
     <string name="save">Save</string>
 
-    <!-- Label for editor overflow menu option that deletes the current habit [CHAR LIMIT=20] -->
-    <string name="delete">Delete</string>
+    <string name="there_are">There are</string>
+    <string name="habits_logged">habits logged.</string>
+    <string name="study_udacity">Study Udacity</string>
+    <string name="work_on_abnd_course">Work on ABND course</string>
 
 </resources>
