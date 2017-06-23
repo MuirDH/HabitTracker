@@ -29,8 +29,7 @@ public class CatalogActivity extends AppCompatActivity {
      */
     private HabitDbHelper dbHelper;
     private SQLiteDatabase db;
-    private Cursor cursor;
-    private String[] projection;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,14 +74,14 @@ public class CatalogActivity extends AppCompatActivity {
          * Define a projection that specifies which columns from the database will actually be used
          * after this query.
          */
-        projection = new String[]{
+        String[] projection = new String[]{
                 HabitEntry._ID,
                 HabitEntry.COLUMN_HABIT,
                 HabitEntry.COLUMN_EXTRA_INFO,
                 HabitEntry.COLUMN_FREQUENCY,
                 HabitEntry.COLUMN_TIME};
 
-        readDataBase();
+        Cursor cursor = readDataBase(projection);
 
         TextView displayView = (TextView) findViewById(R.id.text_view_habit);
 
@@ -153,20 +152,19 @@ public class CatalogActivity extends AppCompatActivity {
 
     }
 
-    private Cursor readDataBase() {
+    private Cursor readDataBase(String[] projection) {
 
         // query for cursor
         // Perform a query on the habits table
-        cursor = db.query(
+
+        return db.query(
                 HabitEntry.TABLE_NAME,    // The table to query
                 projection,               // The columns to return
                 null,                     // The columns for the WHERE clause
                 null,                     // The values for the WHERE clause
                 null,                     // Don't group the rows
                 null,                     // Don't filter by row groups
-                null);                    // The sort order
-
-        return cursor;
+                null);
     }
 
     // Helper method to insert hardcoded habit data into the database. For debugging purposes only.
