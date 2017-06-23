@@ -12,8 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.android.habittracker.data.HabitDbHelper;
 import com.example.android.habittracker.data.HabitContract.HabitEntry;
+import com.example.android.habittracker.data.HabitDbHelper;
 
 import static com.example.android.habittracker.R.menu.menu_catalog;
 
@@ -28,6 +28,9 @@ public class CatalogActivity extends AppCompatActivity {
      * Database helper that will provide access to the database.
      */
     private HabitDbHelper dbHelper;
+    private SQLiteDatabase db;
+    private Cursor cursor;
+    private String[] projection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,28 +69,20 @@ public class CatalogActivity extends AppCompatActivity {
     private void displayDatabaseInfo() {
 
         // Create and/or open a database to read from it
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        db = dbHelper.getReadableDatabase();
 
         /*
          * Define a projection that specifies which columns from the database will actually be used
          * after this query.
          */
-        String[] projection = {
+        projection = new String[]{
                 HabitEntry._ID,
                 HabitEntry.COLUMN_HABIT,
                 HabitEntry.COLUMN_EXTRA_INFO,
                 HabitEntry.COLUMN_FREQUENCY,
                 HabitEntry.COLUMN_TIME};
 
-        // Perform a query on the habits table
-        Cursor cursor = db.query(
-                HabitEntry.TABLE_NAME,    // The table to query
-                projection,               // The columns to return
-                null,                     // The columns for the WHERE clause
-                null,                     // The values for the WHERE clause
-                null,                     // Don't group the rows
-                null,                     // Don't filter by row groups
-                null);                    // The sort order
+        readDataBase();
 
         TextView displayView = (TextView) findViewById(R.id.text_view_habit);
 
@@ -158,11 +153,27 @@ public class CatalogActivity extends AppCompatActivity {
 
     }
 
+    private Cursor readDataBase() {
+
+        // query for cursor
+        // Perform a query on the habits table
+        cursor = db.query(
+                HabitEntry.TABLE_NAME,    // The table to query
+                projection,               // The columns to return
+                null,                     // The columns for the WHERE clause
+                null,                     // The values for the WHERE clause
+                null,                     // Don't group the rows
+                null,                     // Don't filter by row groups
+                null);                    // The sort order
+
+        return cursor;
+    }
+
     // Helper method to insert hardcoded habit data into the database. For debugging purposes only.
     private void insertHabit() {
 
         // Gets the database in write mode
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
 
         /*
          * Create a ContentValues object where column names are the keys, and studying habit's
